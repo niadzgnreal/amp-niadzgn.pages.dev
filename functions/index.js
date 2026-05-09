@@ -143,32 +143,3 @@ function pagination(current, total) {
   return html;
 }
 
-// ======================
-// SEARCH SCRIPT
-// ======================
-function searchScript() {
-  return `
-<script>
-const input = document.querySelector(".search");
-const results = document.getElementById("results");
-
-input?.addEventListener("input", async e=>{
-  const q = e.target.value;
-
-  if(q.length < 2){
-    results.innerHTML = "";
-    return;
-  }
-
-  const res = await fetch("/api/search?q="+q);
-  const data = await res.json();
-
-  results.innerHTML = data.map(d=>\`
-    <a class="search-item" href="/post/\${d.slug}">
-      <h4>\${d.title}</h4>
-    </a>
-  \`).join("");
-});
-</script>
-`;
-}
